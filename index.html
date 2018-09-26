@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue</title>
+    <style>
+    .red{
+        color:red;
+    }
+    </style>
+</head>
+<body>
+<div id="app">
+
+    <h3 v-text="msg"></h3>
+    <p v-html="htmlText"></p>
+    <p v-bind:class="className" v-text='classText'></p>
+    <button v-on:click="add"> 点我加一  {{number}}</button>
+    <p>{{date | formatDate}}</p>  
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> 
+<!-- <script>
+    var plusDate = function(value){
+        return value<10 ? '0'+ value : value
+    }
+    var app = new Vue({
+        el:'#app',
+        data:{
+            date:new Date()
+        },
+        filters:{
+            formatDate:function(value){
+                var date = new Date(value)
+                var year = date.getFullYear()
+                var month = plusDate(date.getMonth() + 1)
+                var day = plusDate(date.getDate())
+                var hour = plusDate(date.getHours())
+                var minute = plusDate(date.getMinutes())
+                var second = plusDate(date.getSeconds())
+               return year+'年'+month+'月'+ day+ '日' + '  '+ hour+'时' + minute+'分' + second+'秒'
+            }
+        },
+        mounted:function(){
+            var _this = this
+            this.temer = setInterval(function(){
+                _this.date = new Date()
+            },1000)
+        },
+        beforeDestroy:function(){
+            if(this.timer){
+                clearInterval(this.timer)
+            }
+        },
+    })
+  
+</script> -->
+
+<script>
+var plusDate =function(value){
+    return value<10 ?'0'+ value : value  
+}
+var app = new Vue({
+    el:'#app',
+    data:{
+        date: new Date(),
+        msg:'v-text绑定的标题文字',
+        htmlText:'<span>v-html渲染的html内容</span>',
+        className:'red',
+        classText:'v-bind绑定的class的元素内容',
+        number:0
+    },
+    methods:{
+        add:function(){
+             this.number= this.number + 1   
+        }
+    },
+    filters:{
+        formatDate:function(value){
+            var date = new Date(value)         
+            var year = date.getFullYear()
+            var month = plusDate(date.getMonth()+1)
+            var day = plusDate(date.getDate())
+            var hour = plusDate(date.getHours())
+            var minute = plusDate(date.getMinutes())
+            var second = plusDate(date.getSeconds())
+            return  year+'年'+month+'月'+day+'日'+hour+'时'+minute+'分'+second+'秒' 
+        }
+    },
+    mounted:function(){
+        var _this = this
+        this.timer = setInterval(function(){
+            _this.date = new Date()
+        },1000)
+    },
+    beforeDestory:function(){
+        if(this.timer){
+            clearInterval(this.timer)
+        }
+    }
+})
+
+</script>
+
+</body>
+</html>
